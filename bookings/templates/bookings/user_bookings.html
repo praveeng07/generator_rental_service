@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+    .booking-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .booking-item {
+        background-color: #f2f2f2;
+        border-radius: 5px;
+        padding: 15px;
+        margin-bottom: 10px;
+    }
+
+    .booking-details {
+        font-size: 16px;
+        margin-bottom: 5px;
+    }
+</style>
+
+<div class="row justify-content-center mt-5">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-title text-center">Your Bookings</h2>
+                <ul class="booking-list">
+                    {% for booking in bookings %}
+                        <li class="booking-item">
+                            <div class="booking-details">
+                                <p class="card-text">{{ booking.generator.name }} - {{ booking.start_date }} to {{ booking.end_date }}</p>
+                            </div>
+                        </li>
+                    {% empty %}
+                        <li>No bookings found.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

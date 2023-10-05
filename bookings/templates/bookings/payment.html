@@ -1,0 +1,74 @@
+<!-- payment.html -->
+{% load static %}
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="row justify-content-center mt-5">
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title text-center">Payment</h2>
+                    <form id="payment-form" method="post" action="{% url 'bookings:process_payment' %}">
+                        {% csrf_token %}
+                        <div id="card-element" class="mb-3">
+                            <!-- Stripe card element will be rendered here -->
+                        </div>
+                        <div class="text-center">
+                            <button class="btn btn-primary" type="submit">Pay Now</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://js.stripe.com/v3/"></script>
+    <script>
+        console.log('Payment page loaded');
+
+        // Stripe JS integration
+        var stripe = Stripe('{{ STRIPE_PUBLIC_KEY }}');
+        var elements = stripe.elements();
+        var cardElement = elements.create('card');
+        cardElement.mount('#card-element');
+
+        var form = document.getElementById('payment-form');
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
+            stripe.createPaymentMethod({
+                type: 'card',
+                card: cardElement,
+            }).then(function (result) {
+                if (result.error) {
+                    // Handle payment method error
+                    console.error(result.error.message);
+                } else {
+                    // Proceed with payment method ID
+                    var paymentMethodId = result.paymentMethod.id;
+                    fetch("{% url 'bookings:process_payment' %}", {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRFToken': '{{ csrf_token }}'
+                        },
+                        body: JSON.stringify({
+                            'payment_method_id': paymentMethodId
+                        })
+                    }).then(function (response) {
+                        return response.json();
+                    }).then(function (data) {
+                        if (data.success) {
+                            // Payment succeeded
+                            console.log(data.message);
+                        } else {
+                            // Payment failed
+                            console.error(data.message);
+                        }
+                    }).catch(function (error) {
+                        console.error('Error:', error);
+                    });
+                }
+            });
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,21 @@
+How to Execute the Code:
+-Just pull the code in your local host and Execute the Code.
+-Install all the required packeges. 
+-Create a super user as your need and Done.
+
+-----------------------------------------------------------------------------------------
+For password reset function to work  with your actual e-mail id do the following steps:
+1. Login to your Account using https://myaccount.google.com/.
+2. Then go to Security option in left corner.
+3. Then go to "How you sign in to Google" and Enable "Two step verification".
+4. After this in the same tab scroll down till end --> select "App passwords" option and create an app password.
+5. you will get a 16 digit password like this --> "drbowbrqgyhtpaeh".
+6. copy the code and paste it in the settings.py file of the generator project.
+7. change  "DEFAULT_FROM_EMAIL" and "EMAIL_HOST_USER" mail to your mail-id and run the project
+8. open after receiving the email for password resetting """""open the link in the PC which is running the local-host"""""" and the password will get change 
+9. If you want to use fake E-mail the comment the code and remove comment from below two lines and it will do the same thing.
+
+It is better to off the windows fire-wall while running the project to minimize the unknown errors
+
+changes in settings.py file ;
+change example@gmail.com from settings.py ,in admin site to your e-mail and change your 16 digit app password as well.  :)

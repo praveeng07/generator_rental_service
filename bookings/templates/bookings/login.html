@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    /* ... your existing styles ... */
+</style>
+
+<div class="row justify-content-center mt-5">
+    <div class="col-lg-4">
+        <div class="card animate__animated animate__fadeIn login-card">
+            <div class="card-body">
+                <h2 class="card-title text-center">Login</h2>
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <div class="text-center mt-4">
+                        <button class="btn btn-primary btn-lg" type="submit">Login</button>
+                    </div>
+                </form>
+                <p class="text-center mt-3">Don't have an account? <a href="{% url 'bookings:register' %}" class="animate__animated animate__fadeInUp">Register here</a>.</p>
+                <p class="text-center mt-3"><a href="{% url 'password_reset' %}">Forgot password?</a></p> 
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-title text-center">About Us</h2>
+                <div class="row">
+                    <div class="col-md-6">
+                        <img id="about-image" src="{% static 'images/about.jpg' %}" class="img-fluid rounded-circle animate__animated animate__fadeInLeft" alt="About Us Image">
+                    </div>
+                    <div class="col-md-6">
+                        <h4 class="mb-4 animate__animated animate__fadeInRight">Who We Are</h4>
+                        <p id="about-text" class="animate__animated animate__fadeInRight">Welcome to Generator Booking, your reliable source for generator rentals. We specialize in providing high-quality generators for various power needs, whether it's for events, construction sites, or emergency backup power.</p>
+                        <h4 class="mb-4 animate__animated animate__fadeInRight">Our Mission</h4>
+                        <p id="about-text" class="animate__animated animate__fadeInRight">With a wide range of generators in our inventory, we ensure that you have access to the right power solution that meets your requirements. Our generators are well-maintained and efficient, ensuring optimal performance and reliability.</p>
+                        <h4 class="mb-4 animate__animated animate__fadeInRight">Exceptional Service</h4>
+                        <p id="about-text" class="animate__animated animate__fadeInRight">At Generator Booking, we prioritize customer satisfaction and strive to deliver exceptional service. Our team of experienced professionals is dedicated to assisting you in choosing the perfect generator and ensuring a seamless rental experience.</p>
+                        <h4 class="mb-4 animate__animated animate__fadeInRight">Contact Us</h4>
+                        <p id="about-text" class="animate__animated animate__fadeInRight">Whether you need temporary power for a small gathering or a large-scale event, we've got you covered. Contact us today to discuss your power needs and let us provide you with a reliable generator solution tailored to your requirements.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+
+    <script>
+        // Add animations on page load
+        document.addEventListener("DOMContentLoaded", function() {
+            var aboutImage = document.getElementById('about-image');
+            var aboutText = document.querySelectorAll('#about-text');
+
+            // Add fadeInLeft animation to the image
+            aboutImage.classList.add('animate__animated', 'animate__fadeInLeft');
+
+            // Add fadeInRight animation to the paragraphs
+            for (var i = 0; i < aboutText.length; i++) {
+                aboutText[i].classList.add('animate__animated', 'animate__fadeInRight');
+            }
+        });
+    </script>
+{% endblock %}

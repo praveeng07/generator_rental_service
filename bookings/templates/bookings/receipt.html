@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="row justify-content-center mt-5">
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title text-center">Receipt</h2>
+                    <p class="card-text">Booking ID: {{ booking_result.id }}</p>
+                    <p class="card-text">Generator: {{ generator.name }}</p>
+                    <p class="card-text">Start Date: {{ booking_result.start_date }}</p>
+                    <p class="card-text">End Date: {{ booking_result.end_date }}</p>
+                    <p class="card-text">Price: ₹{{ price }}</p>
+                    <form action="{% url 'bookings:initiate_payment' %}" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="booking_id" value="{{ booking_result.id }}">
+                        <div class="text-center">
+                            <button class="btn btn-primary" type="submit">Proceed to Book</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

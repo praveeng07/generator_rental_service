@@ -1,0 +1,194 @@
+<!-- base.html -->
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Generator Booking</title>
+
+    <!-- Add the following links for the datepicker libraries -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <!-- Dark Mode CSS -->
+    <link rel="stylesheet" href="{% static 'css/dark-mode.css' %}" id="dark-mode">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <!-- Your other CSS and JavaScript files -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script src="{% static 'js/script.js' %}"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        // Check if dark mode preference is stored in localStorage
+        const storedMode = localStorage.getItem('darkMode');
+
+        // Apply stored mode on page load
+        if (storedMode === 'dark') {
+            document.body.classList.add('dark-mode');
+        }
+    </script>
+
+    <style>
+        body {
+            padding-top: 50px;
+        }
+
+        main {
+            min-height: calc(100vh - 170px);
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 20px 0;
+        }
+
+        footer p {
+            margin: 0;
+        }
+
+        footer .social-links a {
+            color: #fff;
+            margin-right: 10px;
+            font-size: 18px;
+        }
+
+        footer .contact-info {
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        #map {
+            height: 200px;
+            left: 0;
+        }
+    </style>
+</head>
+<body class="light-mode"style="background-image: url('{% static 'images/bg.jpg' %}');">
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+            <div class="container">
+                <a class="navbar-brand" href="{% url 'bookings:about_us' %}">Generator Booking</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ml-auto">
+                        {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'bookings:user_bookings' %}">My Bookings</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'bookings:logout' %}">Logout</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'bookings:generator_list' %}">Generators</a>
+                        </li>
+                        {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'bookings:login' %}">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'bookings:register' %}">Register</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'bookings:contact_us' %}">Contact Us</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" onclick="window.location.href='http://127.0.0.1:8000/admin/login/?next=/admin/auth/user/';">Admin Login </a> 
+                            {% comment %}   Replace a with button is its not working {% endcomment %}
+                        </li>
+                        {% endif %}
+                        <li class="nav-item">
+                            <button id="dark-mode-toggle" class="btn btn-sm">
+                                <i class="fa fa-moon"></i>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mt-5" style="background-image: url('{% static 'images/background.png' %}');">
+        {% block content %}
+        
+        {% endblock %}
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-left">
+                    <p>&copy; 2023 Generator Booking</p>
+                  
+                </div>
+                <div class="col-md-6 text-center text-md-right">
+                    <div class="social-links"><br/>
+                        <br/>
+                        <br/>
+                        
+                    </div>
+                    <div class="contact-info">
+                        <span>Contact: +918088389598</span><br/>
+                        <br>
+                        <span>Shop Address: Vidyagiri,Dharwad</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+
+    <script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" crossorigin="anonymous"></script>
+    <script>
+        // Dark mode toggle
+        const darkModeToggle = document.getElementById('dark-mode-toggle');
+        const body = document.body;
+
+        darkModeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+
+            // Store dark mode preference in localStorage
+            if (body.classList.contains('dark-mode')) {
+                localStorage.setItem('darkMode', 'dark');
+            } else {
+                localStorage.setItem('darkMode', 'light');
+            }
+        });
+
+        // Check if dark mode preference is stored in localStorage on page load
+        window.addEventListener('load', () => {
+            const storedMode = localStorage.getItem('darkMode');
+            if (storedMode === 'dark') {
+                body.classList.add('dark-mode');
+            }
+        });
+
+        // Initialize and display the map
+        function initMap() {
+            const mapElement = document.getElementById('map');
+            const mapOptions = {
+                center: { lat: 40.712776, lng: -74.005974 }, // Coordinates for New York City
+                zoom: 12
+            };
+            const map = new google.maps.Map(mapElement, mapOptions);
+        }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBfSInKmA7Ibd2GQaicbUtOs2o0EJyKWQo&callback=initMap" async defer></script>
+</body>
+</html>

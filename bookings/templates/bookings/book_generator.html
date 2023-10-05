@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="row justify-content-center mt-5">
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title text-center">Book Generator: {{ generator.name }}</h2>
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <p class="card-text"><strong>Price:</strong> ₹{{ generator.daily_price }}</p>
+                        <div class="text-center">
+                            <button class="btn btn-primary" type="submit">Book</button>
+                        </div>
+                    </form>
+                    {% if booking_result %}
+                        <h3 class="mt-4">Booking Result:</h3>
+                        <div class="card">
+                            <div class="card-body">
+                                <p class="card-text"><strong>Generator:</strong> {{ generator.name }}</p>
+                                <p class="card-text"><strong>Start Date:</strong> {{ booking_result.start_date }}</p>
+                                <p class="card-text"><strong>End Date:</strong> {{ booking_result.end_date }}</p>
+                                <p class="card-text"><strong>Price:</strong> ₹{{ booking_result.price }}</p>
+                                <form action="{% url 'bookings:generate_receipt' booking_result.id %}" method="post">
+                                    {% csrf_token %}
+                                    <div class="text-center">
+                                        <button class="btn btn-primary" type="submit">Generate Receipt</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

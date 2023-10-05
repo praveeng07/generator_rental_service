@@ -1,0 +1,34 @@
+/* dark-mode.css */
+
+body.dark-mode {
+  background-color: #1a1a1a;
+  color: #ffffff;
+}
+
+.dark-mode h2,
+.dark-mode h3,
+.dark-mode p,
+.dark-mode label {
+  color: #ffffff;
+}
+
+.dark-mode input,
+.dark-mode textarea,
+.dark-mode select {
+  color: #ffffff;
+  background-color: #000000;
+}
+
+.dark-mode .btn {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.dark-mode .card {
+  background-color: #333333;
+  color: #ffffff;
+}
+
+.dark-mode .card-body {
+  background-color: #1a1a1a;
+}
