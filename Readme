@@ -18,4 +18,4 @@ For password reset function to work  with your actual e-mail id do the following
 It is better to off the windows fire-wall while running the project to minimize the unknown errors
 
 changes in settings.py file ;
-change example@gmail.com from settings.py ,in admin site to your e-mail and change your 16 digit app password as well.  :)
+change youremail@gmail.com from settings.py ,in admin site to your e-mail and change your 16 digit app password as well.  :)
