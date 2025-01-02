@@ -1,6 +1,6 @@
 How to Execute the Code:
--Just pull the code in your local host and Execute the Code.
--Install all the required packeges. 
+-Just pull the code in your local machine.
+-Run the command pip install -r requirements.txt. 
 -Create a super user as your need and Done.
 
 -----------------------------------------------------------------------------------------
